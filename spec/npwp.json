@@ -1,0 +1,71 @@
+{
+  "description": "NPWP and NITKU test vectors. The 16-digit NIK form uses 'now' as the reference date for the NIK birth date.",
+  "now": "2026-01-01",
+  "npwp": [
+    {
+      "name": "legacy 15 digits, formatted",
+      "input": "01.234.567.8-901.000",
+      "result": {
+        "npwp16": "0012345678901000",
+        "npwp15": "012345678901000",
+        "kind": "legacy",
+        "formatted": "01.234.567.8-901.000"
+      }
+    },
+    {
+      "name": "legacy 15 digits, plain",
+      "input": "012345678901000",
+      "result": {
+        "npwp16": "0012345678901000",
+        "npwp15": "012345678901000",
+        "kind": "legacy",
+        "formatted": "01.234.567.8-901.000"
+      }
+    },
+    {
+      "name": "16 digits with leading zero is the legacy form",
+      "input": "0012345678901000",
+      "result": {
+        "npwp16": "0012345678901000",
+        "npwp15": "012345678901000",
+        "kind": "legacy",
+        "formatted": "01.234.567.8-901.000"
+      }
+    },
+    {
+      "name": "16 digits without leading zero is a NIK",
+      "input": "3201010101900001",
+      "result": {
+        "npwp16": "3201010101900001",
+        "kind": "nik",
+        "formatted": "3201010101900001"
+      }
+    },
+    { "name": "NIK form with a bad birth date", "input": "3201013102900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "NIK form with an unknown province", "input": "9901010101900001", "error": "UNKNOWN_REGION" },
+    { "name": "14 digits", "input": "01234567890100", "error": "INVALID_LENGTH" },
+    { "name": "letters", "input": "01.234.567.8-901.ABC", "error": "INVALID_CHARACTERS" }
+  ],
+  "nitku": [
+    {
+      "name": "head office of a legacy NPWP",
+      "input": "0012345678901000000000",
+      "result": {
+        "nitku": "0012345678901000000000",
+        "npwp16": "0012345678901000",
+        "suffix": "000000"
+      }
+    },
+    {
+      "name": "branch of a NIK-based NPWP",
+      "input": "3201010101900001 000001",
+      "result": {
+        "nitku": "3201010101900001000001",
+        "npwp16": "3201010101900001",
+        "suffix": "000001"
+      }
+    },
+    { "name": "21 digits", "input": "001234567890100000000", "error": "INVALID_LENGTH" },
+    { "name": "NIK part is not valid", "input": "3201013102900001000000", "error": "INVALID_BIRTH_DATE" }
+  ]
+}

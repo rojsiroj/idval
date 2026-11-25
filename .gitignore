@@ -1,0 +1,7 @@
+node_modules/
+ts/dist/
+# Copied from the repository root by "npm pack".
+ts/README.md
+ts/LICENSE
+coverage/
+.DS_Store

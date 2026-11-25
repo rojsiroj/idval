@@ -1,0 +1,65 @@
+{
+  "description": "Indonesian phone number test vectors. Operator is present only for mobile numbers.",
+  "cases": [
+    {
+      "name": "Telkomsel, local format",
+      "input": "081234567890",
+      "result": { "e164": "+6281234567890", "national": "081234567890", "kind": "mobile", "operator": "telkomsel" }
+    },
+    {
+      "name": "Indosat, +62 with separators",
+      "input": "+62 857-1234-5678",
+      "result": { "e164": "+6285712345678", "national": "085712345678", "kind": "mobile", "operator": "indosat" }
+    },
+    {
+      "name": "XL, 62 without plus",
+      "input": "6281912345678",
+      "result": { "e164": "+6281912345678", "national": "081912345678", "kind": "mobile", "operator": "xl" }
+    },
+    {
+      "name": "Axis",
+      "input": "0838-1234-5678",
+      "result": { "e164": "+6283812345678", "national": "083812345678", "kind": "mobile", "operator": "axis" }
+    },
+    {
+      "name": "Tri",
+      "input": "089612345678",
+      "result": { "e164": "+6289612345678", "national": "089612345678", "kind": "mobile", "operator": "tri" }
+    },
+    {
+      "name": "Smartfren",
+      "input": "088812345678",
+      "result": { "e164": "+6288812345678", "national": "088812345678", "kind": "mobile", "operator": "smartfren" }
+    },
+    {
+      "name": "short old Telkomsel number",
+      "input": "0811123456",
+      "result": { "e164": "+62811123456", "national": "0811123456", "kind": "mobile", "operator": "telkomsel" }
+    },
+    {
+      "name": "+62 followed by a trunk zero",
+      "input": "+62 0812-3456-7890",
+      "result": { "e164": "+6281234567890", "national": "081234567890", "kind": "mobile", "operator": "telkomsel" }
+    },
+    {
+      "name": "Jakarta landline",
+      "input": "021-5551234",
+      "result": { "e164": "+62215551234", "national": "0215551234", "kind": "landline" }
+    },
+    {
+      "name": "Yogyakarta landline with parentheses",
+      "input": "(0274) 512345",
+      "result": { "e164": "+62274512345", "national": "0274512345", "kind": "landline" }
+    },
+    { "name": "empty", "input": "", "error": "INVALID_PREFIX" },
+    { "name": "letters", "input": "0812abc4567", "error": "INVALID_CHARACTERS" },
+    { "name": "plus in the middle", "input": "0812+34567890", "error": "INVALID_CHARACTERS" },
+    { "name": "other country", "input": "+1 415 555 0100", "error": "INVALID_PREFIX" },
+    { "name": "no trunk zero or country code", "input": "81234567890", "error": "INVALID_PREFIX" },
+    { "name": "short code range", "input": "0112345678", "error": "INVALID_PREFIX" },
+    { "name": "mobile too short", "input": "0812345", "error": "INVALID_LENGTH" },
+    { "name": "mobile too long", "input": "08123456789012", "error": "INVALID_LENGTH" },
+    { "name": "landline too short", "input": "021555", "error": "INVALID_LENGTH" },
+    { "name": "unassigned mobile prefix", "input": "081012345678", "error": "UNKNOWN_OPERATOR" }
+  ]
+}

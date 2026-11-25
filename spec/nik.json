@@ -1,0 +1,103 @@
+{
+  "description": "NIK test vectors. Each implementation must parse every input with 'now' as the reference date and get the same result or error code.",
+  "now": "2026-01-01",
+  "cases": [
+    {
+      "name": "male, 1990",
+      "input": "3201010101900001",
+      "result": {
+        "nik": "3201010101900001",
+        "provinceCode": "32",
+        "provinceName": "Jawa Barat",
+        "regencyCode": "3201",
+        "districtCode": "320101",
+        "birthDate": "1990-01-01",
+        "gender": "male",
+        "serial": "0001"
+      }
+    },
+    {
+      "name": "female (day + 40), 2005",
+      "input": "3174054512050003",
+      "result": {
+        "nik": "3174054512050003",
+        "provinceCode": "31",
+        "provinceName": "DKI Jakarta",
+        "regencyCode": "3174",
+        "districtCode": "317405",
+        "birthDate": "2005-12-05",
+        "gender": "female",
+        "serial": "0003"
+      }
+    },
+    {
+      "name": "spaces, dots and dashes are removed",
+      "input": "32.01.01-010190 0001",
+      "result": {
+        "nik": "3201010101900001",
+        "provinceCode": "32",
+        "provinceName": "Jawa Barat",
+        "regencyCode": "3201",
+        "districtCode": "320101",
+        "birthDate": "1990-01-01",
+        "gender": "male",
+        "serial": "0001"
+      }
+    },
+    {
+      "name": "29 February 2000 is a leap day",
+      "input": "3201012902000001",
+      "result": {
+        "nik": "3201012902000001",
+        "provinceCode": "32",
+        "provinceName": "Jawa Barat",
+        "regencyCode": "3201",
+        "districtCode": "320101",
+        "birthDate": "2000-02-29",
+        "gender": "male",
+        "serial": "0001"
+      }
+    },
+    {
+      "name": "a date after 'now' in this century goes to the previous century",
+      "input": "3201010106260001",
+      "result": {
+        "nik": "3201010106260001",
+        "provinceCode": "32",
+        "provinceName": "Jawa Barat",
+        "regencyCode": "3201",
+        "districtCode": "320101",
+        "birthDate": "1926-06-01",
+        "gender": "male",
+        "serial": "0001"
+      }
+    },
+    {
+      "name": "new Papua province code",
+      "input": "9601017107990012",
+      "result": {
+        "nik": "9601017107990012",
+        "provinceCode": "96",
+        "provinceName": "Papua Barat Daya",
+        "regencyCode": "9601",
+        "districtCode": "960101",
+        "birthDate": "1999-07-31",
+        "gender": "female",
+        "serial": "0012"
+      }
+    },
+    { "name": "empty", "input": "", "error": "INVALID_LENGTH" },
+    { "name": "15 digits", "input": "320101010190000", "error": "INVALID_LENGTH" },
+    { "name": "17 digits", "input": "32010101019000011", "error": "INVALID_LENGTH" },
+    { "name": "letters", "input": "32010101019000AB", "error": "INVALID_CHARACTERS" },
+    { "name": "unknown province", "input": "9901010101900001", "error": "UNKNOWN_REGION" },
+    { "name": "regency 00", "input": "3200010101900001", "error": "UNKNOWN_REGION" },
+    { "name": "district 00", "input": "3201000101900001", "error": "UNKNOWN_REGION" },
+    { "name": "31 February", "input": "3201013102900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "day 32", "input": "3201013201900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "day 40", "input": "3201014001900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "day 72", "input": "3201017201900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "month 13", "input": "3201010113900001", "error": "INVALID_BIRTH_DATE" },
+    { "name": "serial 0000", "input": "3201010101900000", "error": "INVALID_SERIAL" }
+  ]
+}
